@@ -1,7 +1,11 @@
-import { Header } from './components/Header/Header.jsx';
+import Header from './components/Header';
+import Main from './components/Main';
 
 const App = () => (
-  <Header />
+  <>
+    <Header />
+    <Main />
+  </>
 );
 
 export default App;
