@@ -1,22 +1,20 @@
 import style from './AuthBtn.module.css';
-import PropTypes from 'prop-types';
 import { ReactComponent as EnterSvg } from './img/enter.svg';
-import { ReactComponent as ExitSvg } from './img/exit.svg';
+// import { ReactComponent as ExitSvg } from './img/exit.svg';
+import { urlAuth } from '../../../api/auth.js';
 
+export const AuthBtn = () => {
+  console.log('auth');
 
-export const AuthBtn = ({ isAuth }) => (
-  <button
-    className={style.btn}
-    aria-label={isAuth ? 'Выйти из аккаунта' : 'Войти в аккаунт'}
-  >
-    {
-    isAuth ?
-      <ExitSvg className={style.svg}/> :
-      <EnterSvg className={style.svg}/>
-    }
-  </button>
-);
-
-AuthBtn.propTypes = {
-  isAuth: PropTypes.bool,
+  return (
+    <button
+      className={style.btn}
+      aria-label={'Войти в аккаунт'}
+    >
+      <a className={style.link} href={urlAuth}>
+        <EnterSvg className={style.svg}/>
+        <span>Войти</span>
+      </a>
+    </button>
+  );
 };

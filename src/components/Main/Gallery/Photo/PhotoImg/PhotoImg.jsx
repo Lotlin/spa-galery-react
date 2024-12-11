@@ -2,15 +2,12 @@ import style from './PhotoImg.module.css';
 import PropTypes from 'prop-types';
 import noPhoto from './img/noPhoto.jpg';
 
-export const PhotoImg = ({ title, thumbnail }) => {
-  const srcImg = thumbnail.startsWith('http') ? thumbnail : noPhoto;
-
-  return (
-    <img className={style.img} src={srcImg} alt={title} />
-  );
+export const PhotoImg = ({ alt, urls }) => {
+  const srcImg = urls?.small ? urls.small : noPhoto;
+  return <img className={style.img} src={srcImg} alt={alt} />;
 };
 
 PhotoImg.propTypes = {
-  title: PropTypes.string,
-  thumbnail: PropTypes.string,
+  alt: PropTypes.string,
+  urls: PropTypes.object
 };

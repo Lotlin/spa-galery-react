@@ -1,6 +1,19 @@
 .list {
-  padding: 10px 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 10px;
+  column-count: 3;
+  column-gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (max-width: 768px) {
+  .list {
+    column-count: 2;
+  }
+}
+
+@media (max-width: 480px) {
+  .list {
+    column-count: 1;
+  }
 }

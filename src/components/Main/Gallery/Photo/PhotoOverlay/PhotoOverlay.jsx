@@ -1,20 +1,29 @@
 import style from './PhotoOverlay.module.css';
 import propTypes from 'prop-types';
 import Date from '../../../../Date';
-import Likes from '../../../../Likes';
+import Like from '../../../../Like';
 import PhotoAuthor from './PhotoAuthor';
 
-export const PhotoOverlay = ({ author, authorLink, date, likes }) => (
-  <div className={style.overlay}>
-    <PhotoAuthor author={author} authorLink={authorLink}/>
-    <Date date={date} />
-    <Likes likes={likes} />
-  </div>
-);
+export const PhotoOverlay = ({ user, date, likes, likedByUser }) => {
+  const author = `${user['first_name']} ${user['last_name']}`;
+  const authorLink = user.links.self;
+
+  return (
+    <div className={style.overlay}>
+      <div className={style.wrapper}>
+        <PhotoAuthor author={author} authorLink={authorLink}/>
+      </div>
+      <div className={style.wrapper}>
+        <Date date={date} />
+        <Like likes={likes} likedByUser={likedByUser}/>
+      </div>
+    </div>
+  );
+};
 
 PhotoOverlay.propTypes = {
-  author: propTypes.string,
-  authorLink: propTypes.string,
+  user: propTypes.object,
   date: propTypes.string,
   likes: propTypes.number,
+  likedByUser: propTypes.bool,
 };

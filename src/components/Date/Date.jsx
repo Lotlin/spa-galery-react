@@ -4,7 +4,7 @@ import formatDate from '../../utils/formDate';
 
 export const Date = ({ date }) => (
   <time
-    className={`${style.date} ${style['date--photo-item']}`}
+    className={style.date}
     dateTime={date}>{formatDate(date)}
   </time>
 );
@@ -12,4 +12,3 @@ export const Date = ({ date }) => (
 Date.propTypes = {
   date: PropTypes.string,
 };
-

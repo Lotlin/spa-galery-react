@@ -1,10 +1,9 @@
-import style from './Photo.module.css';
+import style from './PhotoBig.module.css';
 import PropTypes from 'prop-types';
-import PhotoImg from './PhotoImg';
-import PhotoOverlay from './PhotoOverlay';
+import PhotoImg from '../PhotoImg';
+import PhotoOverlay from '../PhotoOverlay';
 
-export const Photo = ({ photoData }) => {
-  // console.log('photoData: ',
+export const PhotoBig = ({ photoData }) => {
   const {
     alt_description: alt,
     urls,
@@ -15,7 +14,7 @@ export const Photo = ({ photoData }) => {
   } = photoData;
 
   return (
-    <li className={style.item}>
+    <a className={style.link} href={urls.full}>
       <PhotoImg alt={alt} urls={urls} />
       <PhotoOverlay
         user={user}
@@ -23,10 +22,11 @@ export const Photo = ({ photoData }) => {
         likes={likes}
         likedByUser={likedByUser}
       />
-    </li>
+    </a>
   );
 };
 
-Photo.propTypes = {
+PhotoBig.propTypes = {
   photoData: PropTypes.object.isRequired
 };
+
