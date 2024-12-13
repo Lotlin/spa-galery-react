@@ -13,11 +13,6 @@ export const useToken = state => {
 
   useEffect(() => {
     const urlCode = new URLSearchParams(window.location.search).get('code');
-    // чтобы не было ошибки при обновлении страницы,
-    // когда пользователь вышел из ЛК и обновил страницу
-    const oldUrlCode = localStorage.getItem('code');
-
-    if (urlCode === oldUrlCode) return;
 
     if (urlCode && !code) {
       setCode(urlCode);
@@ -25,8 +20,7 @@ export const useToken = state => {
   }, []);
 
   useEffect(() => {
-    if (!code || token || code === 'used') return;
-    console.log('code: ', code);
+    if (!code || token) return;
 
     let urlToken = new URL(TOKEN_URL);
 
@@ -37,7 +31,6 @@ export const useToken = state => {
     urlToken.searchParams.append('grant_type', GRANT_TYPE);
 
     urlToken = urlToken.toString();
-    console.log('urlToken: ', urlToken);
 
     fetch(urlToken, {
       method: 'POST',
@@ -45,25 +38,27 @@ export const useToken = state => {
         'Content-Type': 'application/json',
       },
     })
-      .then(response => {
+      .then(async response => {
         if (!response.ok) {
-          return response.text().then(errorText => {
-            console.error('Error details:', errorText);
-            throw new Error(errorText);
-          });
+          const errorText = await response.text();
+          console.error('Error details:', errorText);
+          throw new Error(errorText);
         }
         return response.json();
       })
       .then(data => {
         setToken(data['access_token']);
         localStorage.setItem('Bearer', data['access_token']);
+
+        const url = new URL(window.location.href);
+        url.searchParams.delete('code');
+        window.history.replaceState({}, document.title, url.toString());
       })
       .catch(error => console.error(error));
   }, [code, token]);
 
   const delToken = () => {
     setToken('');
-    localStorage.setItem('code', code);
     setCode('');
     localStorage.removeItem('Bearer');
   };

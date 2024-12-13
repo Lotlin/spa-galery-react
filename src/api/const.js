@@ -12,3 +12,5 @@ export const PER_PAGE_QUERY_DEFAULT = `${PER_PAGE_QUERY}${DEFAULT_PHOTO_COUNT}`;
 export const TOKEN_URL = 'https://unsplash.com/oauth/token';
 export const SECRET_KEY = 'uEmDxkDBi1pBcgKVCsB-Dz0lTUqi7-S0Mxunn_F9ORI';
 export const GRANT_TYPE = 'authorization_code';
+
+export const USER_DATA_URL = 'https://api.unsplash.com/me';
