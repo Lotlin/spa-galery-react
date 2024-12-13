@@ -26,7 +26,10 @@ export const useAuth = (token) => {
           avatar: userData['profile_image'].small,
         });
       })
-      .catch(error => console.error(error));
+      .catch(error => {
+        console.error(error);
+        setAuth({});
+      });
   }, [token]);
 
   const clearAuth = () => setAuth({});
