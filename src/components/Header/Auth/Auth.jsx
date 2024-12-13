@@ -2,13 +2,13 @@ import style from './Auth.module.css';
 import { ReactComponent as EnterSvg } from './img/enter.svg';
 import { ReactComponent as ExitSvg } from './img/exit.svg';
 import { urlAuth } from '../../../api/auth.js';
-// import { useToken } from '../../../hooks/useToken.js';
-// import { useAuth } from '../../../hooks/useAuth.js';
-import PropTypes from 'prop-types';
+import { useContext } from 'react';
+import { tokenContext } from '../../../context/tokenContext.js';
+import { authContext } from '../../../context/authContext.js';
 
-export const Auth = ({ delToken, auth, clearAuth }) => {
-  // const [token, delToken] = useToken('');
-  // const [auth, clearAuth] = useAuth(token);
+export const Auth = () => {
+  const { delToken } = useContext(tokenContext);
+  const { auth, clearAuth } = useContext(authContext);
 
   const handleExitUser = () => {
     delToken();
@@ -43,10 +43,4 @@ export const Auth = ({ delToken, auth, clearAuth }) => {
     )}
     </div>
   );
-};
-
-Auth.propTypes = {
-  delToken: PropTypes.func,
-  auth: PropTypes.object,
-  clearAuth: PropTypes.func,
 };
