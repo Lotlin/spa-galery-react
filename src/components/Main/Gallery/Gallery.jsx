@@ -4,6 +4,7 @@ import { useAllPhotos } from '../../../hooks/useAllPhotos.js';
 
 export const Gallery = () => {
   const allPhotosData = useAllPhotos();
+  // toDO сделать бесконечную прокрутку
 
   return (
     <ul className={style.list}>

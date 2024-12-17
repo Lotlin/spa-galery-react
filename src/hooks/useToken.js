@@ -6,18 +6,15 @@ import {
   SECRET_KEY,
   TOKEN_URL
 } from '../api/const.js';
+import { useDispatch } from 'react-redux';
+import { getCode } from '../api/code.js';
+import { deleteCode } from '../store/idex.js';
 
 export const useToken = state => {
-  const [code, setCode] = useState('');
+  const dispatch = useDispatch();
   const [token, setToken] = useState(state || localStorage.getItem('Bearer'));
 
-  useEffect(() => {
-    const urlCode = new URLSearchParams(window.location.search).get('code');
-
-    if (urlCode && !code) {
-      setCode(urlCode);
-    }
-  }, []);
+  const code = getCode();
 
   useEffect(() => {
     if (!code || token) return;
@@ -55,11 +52,11 @@ export const useToken = state => {
         window.history.replaceState({}, document.title, url.toString());
       })
       .catch(error => console.error(error));
-  }, [code, token]);
+  }, [token]);
 
   const delToken = () => {
     setToken('');
-    setCode('');
+    dispatch(deleteCode());
     localStorage.removeItem('Bearer');
   };
 
