@@ -1,7 +1,5 @@
 import Header from './components/Header';
 import Main from './components/Main';
-import { TokenContextProvider } from './context/tokenContext';
-import { AuthContextProvider } from './context/authContext';
 import { Provider } from 'react-redux';
 import { store } from './store/idex.js';
 
@@ -10,12 +8,8 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <TokenContextProvider>
-        <AuthContextProvider>
-          <Header />
-          <Main />
-        </AuthContextProvider>
-      </TokenContextProvider>
+      <Header />
+      <Main />
     </Provider>
   );
 };

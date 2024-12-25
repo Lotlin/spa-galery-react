@@ -1,41 +1,25 @@
-import { useContext, useEffect, useState } from 'react';
-import { USER_DATA_URL } from '../api/const.js';
-import { tokenContext } from '../context/tokenContext.js';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  authLogout,
+  authRequestAsync,
+} from '../store/auth/action';
+
 
 export const useAuth = () => {
-  const [auth, setAuth] = useState({});
-  const { token, delToken } = useContext(tokenContext);
+  const auth = useSelector(state => state.auth.data);
+  const token = useSelector(state => state.token.token);
+  const loading = useSelector(state => state.auth.loading);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!token) return;
+    if (token) {
+      dispatch(authRequestAsync());
+    }
+  }, [token, dispatch]);
 
-    fetch(USER_DATA_URL, {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Failed to fetch user data');
-        }
+  const clearAuth = () => dispatch(authLogout());
 
-        return response.json();
-      })
-      .then(userData => {
-        setAuth({
-          name: userData['first_name'],
-          avatar: userData['profile_image'].small,
-        });
-      })
-      .catch(error => {
-        console.error(error);
-        setAuth({});
-        delToken();
-      });
-  }, [token]);
 
-  const clearAuth = () => setAuth({});
-
-  return [auth, clearAuth];
+  return [auth, loading, clearAuth];
 };

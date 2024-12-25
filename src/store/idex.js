@@ -1,37 +1,19 @@
-import { DELETE_CODE, UPDATE_CODE } from './const.js';
-import { createStore } from 'redux';
+import { applyMiddleware, combineReducers, createStore } from 'redux';
+import { composeWithDevTools } from '@redux-devtools/extension';
+import { codeReducer } from './codeReducer.js';
+import { tokenMiddleware, tokenReducer } from './tokenReducer';
+import { thunk } from 'redux-thunk';
+import { authReducer } from './auth/reducer';
+import { allPhotosReducer } from './allPhotos/reducer';
 
-export const deleteCode = () => ({
-  type: DELETE_CODE,
-  code: '',
+const rootReducer = combineReducers({
+  code: codeReducer,
+  token: tokenReducer,
+  auth: authReducer,
+  allPhotos: allPhotosReducer,
 });
 
-export const updateCode = (code) => ({
-  type: UPDATE_CODE,
-  code,
-});
-
-const initialState = {
-  code: '',
-};
-
-const rootReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case DELETE_CODE: {
-      return {
-        ...state,
-        code: '',
-      };
-    }
-    case UPDATE_CODE: {
-      return {
-        ...state,
-        code: action.code,
-      };
-    }
-    default:
-      return state;
-  }
-};
-
-export const store = createStore(rootReducer);
+export const store = createStore(
+  rootReducer,
+  composeWithDevTools(applyMiddleware(tokenMiddleware, thunk)),
+);

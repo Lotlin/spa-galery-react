@@ -2,22 +2,39 @@ import style from './Auth.module.css';
 import { ReactComponent as EnterSvg } from './img/enter.svg';
 import { ReactComponent as ExitSvg } from './img/exit.svg';
 import { urlAuth } from '../../../api/auth.js';
-import { useContext } from 'react';
-import { tokenContext } from '../../../context/tokenContext.js';
-import { authContext } from '../../../context/authContext.js';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { deleteToken, updateToken } from '../../../store/tokenReducer.js';
+import { getToken } from '../../../api/token.js';
+import { useAuth } from '../../../hooks/useAuth.js';
+import AuthLoader from './AuthLoader';
 
 export const Auth = () => {
-  const { delToken } = useContext(tokenContext);
-  const { auth, clearAuth } = useContext(authContext);
+  const dispatch = useDispatch();
+  const [auth, loading, clearAuth] = useAuth();
 
   const handleExitUser = () => {
-    delToken();
+    dispatch(deleteToken());
     clearAuth();
+    localStorage.removeItem('Bearer');
   };
+
+  useEffect(() => {
+    const fetchAndSaveToken = async () => {
+      const token = await getToken();
+      if (token) {
+        dispatch(updateToken(token));
+      }
+    };
+
+    fetchAndSaveToken();
+  }, [dispatch]);
 
   return (
     <div className={style.wrapper}>
-      {auth.name ? (
+      {loading ?
+        (<AuthLoader />) :
+        auth.name ? (
       <>
         <p className={style.greeting}>{`Привет, ${auth.name}!`}</p>
         <button
