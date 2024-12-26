@@ -5,7 +5,7 @@ export const RESPONSE_TYPE = 'code';
 export const SCOPE = 'public+read_user+read_photos+write_likes';
 
 export const PHOTO_LIST_URL = 'https://api.unsplash.com/photos';
-export const PER_PAGE_QUERY = '?per_page=';
+export const PER_PAGE_QUERY = 'per_page=';
 export const DEFAULT_PHOTO_COUNT = 30;
 export const PER_PAGE_QUERY_DEFAULT = `${PER_PAGE_QUERY}${DEFAULT_PHOTO_COUNT}`;
 

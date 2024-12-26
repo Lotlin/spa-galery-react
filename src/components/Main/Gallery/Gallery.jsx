@@ -4,15 +4,31 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { allPostsRequestAsync } from '../../../store/allPhotos/action.js';
 
-
 export const Gallery = () => {
-  // toDO сделать бесконечную прокрутку
   const allPhotosData = useSelector(state => state.allPhotos.data);
   const dispatch = useDispatch();
+  const hasMore = useSelector(state => state.allPhotos.hasMore);
+  const loading = useSelector(state => state.allPhotos.loading);
 
   useEffect(() => {
-    dispatch(allPostsRequestAsync());
+    if (hasMore) {
+      dispatch(allPostsRequestAsync());
+    }
   }, [dispatch]);
+
+  const handleScroll = () => {
+    if (window.innerHeight + window.scrollY >=
+      document.body.offsetHeight - 100) {
+      if (!loading && hasMore) {
+        dispatch(allPostsRequestAsync());
+      }
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <ul className={style.list}>
