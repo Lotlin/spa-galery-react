@@ -2,14 +2,21 @@ import Header from './components/Header';
 import Main from './components/Main';
 import { Provider } from 'react-redux';
 import { store } from './store/idex.js';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import PhotoDetails from './components/Main/PhotoDetails';
 
 const App = () => {
   console.log('APP');
 
   return (
     <Provider store={store}>
-      <Header />
-      <Main />
+      <BrowserRouter>
+        <Header />
+        <Routes>
+          <Route path='/' element={<Main />} />
+          <Route path='/photo/:id' element={<PhotoDetails />} />
+        </Routes>
+      </BrowserRouter>
     </Provider>
   );
 };

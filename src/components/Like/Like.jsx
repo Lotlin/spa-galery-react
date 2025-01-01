@@ -1,7 +1,7 @@
 import style from './Like.module.css';
 import propTypes from 'prop-types';
 
-export const Like = ({ likes, likedByUser }) => (
+export const Like = ({ likes, likedByUser, blackText }) => (
   <p className= {`${style.container} ${likedByUser ? style.liked : ''}`}>
     <svg
       width="50"
@@ -18,11 +18,12 @@ export const Like = ({ likes, likedByUser }) => (
         strokeWidth="1"
       />
     </svg>
-    <span className={style.count}>{likes}</span>
+    <span className={blackText ? style.black : style.count}>{likes}</span>
   </p>
 );
 
 Like.propTypes = {
   likes: propTypes.number,
   likedByUser: propTypes.bool,
+  blackText: propTypes.bool
 };

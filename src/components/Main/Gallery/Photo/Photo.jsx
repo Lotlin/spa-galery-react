@@ -1,7 +1,9 @@
 import style from './Photo.module.css';
 import PropTypes from 'prop-types';
 import PhotoOverlay from './PhotoOverlay';
-import PhotoLink from './PhotoLink';
+import PhotoImg from './PhotoImg';
+// import PhotoLink from './PhotoLink';
+import { Link } from 'react-router-dom';
 
 export const Photo = ({ photoData }) => {
   // console.log('photoData: ', photoData);
@@ -17,7 +19,11 @@ export const Photo = ({ photoData }) => {
 
   return (
     <li className={style.item}>
-      <PhotoLink alt={alt} urls={urls} id={id}/>
+      <Link to={`/photo/${id}`}>
+        <PhotoImg alt={alt} urls={urls}/>
+      </Link>
+
+      {/* todo убрать <PhotoLink alt={alt} urls={urls} id={id}/> */}
       <PhotoOverlay
         user={user}
         date={date}

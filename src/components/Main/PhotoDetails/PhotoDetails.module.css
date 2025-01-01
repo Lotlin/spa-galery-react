@@ -1,0 +1,31 @@
+.wrapper {
+  padding-top: 98px;
+  padding-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  row-gap: 10px;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.img {
+  max-width: 95%;
+  max-height: 95%;
+  object-fit: contain;
+}
+
+.info {
+  width: 95%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.btn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
