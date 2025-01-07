@@ -43,12 +43,13 @@ export const allPostsRequestAsync = () => async (dispatch, getState) => {
       }
     });
 
-    const existingData = getState().allPhotos.data;
-    dispatch(allPhotoRequestSuccess([...existingData, ...response.data]));
-    dispatch(increasePageNumber());
+    dispatch(allPhotoRequestSuccess(response.data));
+
+    // const existingData = getState().allPhotos.data;
+    // dispatch(allPhotoRequestSuccess([...existingData, ...response.data]));
+    // dispatch(increasePageNumber());
   } catch (error) {
     console.error('Ошибка:', error);
     dispatch(allPhotoRequestError(error.toString()));
   }
 };
-

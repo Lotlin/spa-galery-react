@@ -21,9 +21,15 @@ export const Auth = () => {
 
   useEffect(() => {
     const fetchAndSaveToken = async () => {
-      const token = await getToken();
+      const token = localStorage.getItem('Bearer');
       if (token) {
         dispatch(updateToken(token));
+        return;
+      }
+
+      const fetchedToken = await getToken();
+      if (fetchedToken) {
+        dispatch(updateToken(fetchedToken));
       }
     };
 

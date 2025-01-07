@@ -17,11 +17,6 @@ export const getToken = async () => {
 
   if (!code) return null;
 
-  const localToken = localStorage.getItem('Bearer');
-  if (localToken) {
-    return localToken;
-  }
-
   const urlToken = new URL(TOKEN_URL);
   urlToken.searchParams.append('client_id', ACCESS_KEY);
   urlToken.searchParams.append('client_secret', SECRET_KEY);

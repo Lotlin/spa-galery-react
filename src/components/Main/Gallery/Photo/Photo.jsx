@@ -29,6 +29,7 @@ export const Photo = ({ photoData }) => {
         date={date}
         likes={likes}
         likedByUser={likedByUser}
+        id={id}
       />
     </li>
   );

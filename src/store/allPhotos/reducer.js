@@ -1,3 +1,4 @@
+import { LIKE_REQUEST_SUCCESS } from '../like/action.js';
 import {
   ALL_PHOTOS_REQUEST,
   ALL_PHOTOS_REQUEST_ERROR,
@@ -39,6 +40,17 @@ export const allPhotosReducer = (state = initState, action) => {
       return {
         ...state,
         page: state.page + 1,
+      };
+    case LIKE_REQUEST_SUCCESS:
+      return {
+        ...state,
+        data: state.data.map(photo =>
+          (photo.id === action.payload.id ?
+            { ...photo,
+              liked_by_user: action.payload.likedByUser,
+              likes: action.payload.likes } :
+            photo)
+        ),
       };
     default:
       return state;
