@@ -5,7 +5,7 @@ import {
 } from './action.js';
 
 const initState = {
-  likedByUser: false,
+  liked_by_user: false,
   error: '',
 };
 
@@ -19,7 +19,7 @@ export const likeReducer = (state = initState, action) => {
     case LIKE_REQUEST_SUCCESS:
       return {
         ...state,
-        likedByUser: action.likedByUser,
+        liked_by_user: action.likedByUser,
         error: ''
       };
     case LIKE_REQUEST_ERROR:

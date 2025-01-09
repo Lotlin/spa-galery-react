@@ -5,45 +5,41 @@ import { useEffect } from 'react';
 import { allPostsRequestAsync } from '../../../store/allPhotos/action.js';
 
 export const Gallery = () => {
-  // const token = useSelector(state => state.token.token);
   const allPhotosData = useSelector(state => state.allPhotos.data);
-  console.log('allPhotosData : ', allPhotosData);
-  /* const uniquePhotos =
+  const loading = useSelector(state => state.allPhotos.loading);
+  const hasMore = useSelector(state => state.allPhotos.hasMore);
+  const uniquePhotos =
     Array.from(new Map(allPhotosData.map(photo =>
-    [photo.id, photo])).values());*/
+      [photo.id, photo])).values());
   const dispatch = useDispatch();
-  // const hasMore = useSelector(state => state.allPhotos.hasMore);
-  // const loading = useSelector(state => state.allPhotos.loading);
 
-  /* useEffect(() => {
-    if (hasMore) {
-      dispatch(allPostsRequestAsync());
-    }
-  }, []);*/
   useEffect(() => {
-    if (allPhotosData.length === 0) {
+    if (!allPhotosData.length) {
       dispatch(allPostsRequestAsync());
     }
   }, [dispatch, allPhotosData.length]);
 
-  /* const handleScroll = () => {
-    console.log('handleScroll');
-    if (window.innerHeight + window.scrollY >=
-      document.body.offsetHeight - 100) {
-      if (!loading && hasMore) {
-        dispatch(allPostsRequestAsync());
-      }
+  const handleScroll = () => {
+    if (
+      window.innerHeight + document.documentElement.scrollTop >=
+        document.documentElement.offsetHeight - 100 &&
+      hasMore &&
+      !loading
+    ) {
+      dispatch(allPostsRequestAsync());
     }
-  };*/
+  };
 
-  /* useEffect(() => {
+  useEffect(() => {
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);*/
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [handleScroll, hasMore, loading]);
 
   return (
     <ul className={style.list}>
-      {allPhotosData.map((photoData) => (
+      {uniquePhotos.map((photoData) => (
         <Photo key={photoData.id} photoData={photoData} />
       ))}
     </ul>

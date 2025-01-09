@@ -2,11 +2,11 @@ import style from './PhotoOverlay.module.css';
 import propTypes from 'prop-types';
 import Date from '../../../../Date';
 import Like from '../../../../Like';
-import PhotoAuthor from './PhotoAuthor';
+import PhotoAuthor from '../../../PhotoAuthor';
 
 export const PhotoOverlay = ({ user, date, likes, likedByUser }) => {
   const author = `${user['first_name']} ${user['last_name']}`;
-  const authorLink = user.links.self;
+  const authorLink = user.links.html;
 
   return (
     <div className={style.overlay}>

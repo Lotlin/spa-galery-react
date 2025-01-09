@@ -5,8 +5,6 @@ export const LIKE_REQUEST = 'PUT_LIKE_REQUEST';
 export const LIKE_REQUEST_SUCCESS = 'PUT_LIKE_REQUEST_SUCCESS';
 export const LIKE_REQUEST_ERROR = 'PUT_LIKE_REQUEST_ERROR';
 
-// toDo универсальные action
-
 export const likeRequest = () => ({
   type: LIKE_REQUEST,
 });

@@ -6,6 +6,7 @@ import { thunk } from 'redux-thunk';
 import { authReducer } from './auth/reducer';
 import { allPhotosReducer } from './allPhotos/reducer';
 import { likeReducer } from './like/reducer.js';
+import { photoDetailsReduser } from './photoDetails/reducer.js';
 
 const rootReducer = combineReducers({
   code: codeReducer,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   auth: authReducer,
   allPhotos: allPhotosReducer,
   like: likeReducer,
+  photoDetail: photoDetailsReduser,
 });
 
 export const store = createStore(
