@@ -30,17 +30,23 @@ export const allPhotoRequestError = (error) => ({
 
 export const allPostsRequestAsync = () => async (dispatch, getState) => {
   const { loading, hasMore, page } = getState().allPhotos;
+  const token = getState().token.token;
 
   if (loading || !hasMore) return;
 
   dispatch(photoRequest());
 
   try {
+    const headers = {
+      'Authorization': `Client-ID ${ACCESS_KEY}`
+    };
+
+    if (token) {
+      headers.Authorization = `Bearer ${token}`;
+    }
     const response =
     await axios(`${PHOTO_LIST_URL}?page=${page}&${PER_PAGE_QUERY_DEFAULT}`, {
-      headers: {
-        'Authorization': `Client-ID ${ACCESS_KEY}`
-      }
+      headers,
     });
 
     const existingData = getState().allPhotos.data;

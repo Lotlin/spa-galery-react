@@ -22,13 +22,19 @@ export const photoDetailsRequestError = (error) => ({
 
 export const photoDetailsRequestAsync = (id) => async (dispatch, getState) => {
   dispatch(photoDetailsRequest());
+  const token = getState().token.token;
 
   try {
+    const headers = {
+      'Authorization': `Client-ID ${ACCESS_KEY}`
+    };
+
+    if (token) {
+      headers.Authorization = `Bearer ${token}`;
+    }
     const response =
     await axios(`${PHOTO_LIST_URL}/${id}`, {
-      headers: {
-        'Authorization': `Client-ID ${ACCESS_KEY}`
-      }
+      headers,
     });
     dispatch(photoDetailsRequestSuccess(response.data));
   } catch (error) {
