@@ -44,6 +44,7 @@ export const allPostsRequestAsync = () => async (dispatch, getState) => {
     if (token) {
       headers.Authorization = `Bearer ${token}`;
     }
+
     const response =
     await axios(`${PHOTO_LIST_URL}?page=${page}&${PER_PAGE_QUERY_DEFAULT}`, {
       headers,

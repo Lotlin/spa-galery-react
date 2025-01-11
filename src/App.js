@@ -8,13 +8,18 @@ import PhotoDetails from './components/Main/PhotoDetails';
 const App = () => (
   <Provider store={store}>
     <BrowserRouter>
-      <Header />
       <Routes>
         <Route path='/' element={
-          <Main />
+          <>
+            <Header />
+            <Main />
+          </>
         } />
         <Route path='/photo/:id' element={
-          <PhotoDetails />
+          <>
+            <Header from={'photo'} />
+            <PhotoDetails />
+          </>
         } />
       </Routes>
     </BrowserRouter>
